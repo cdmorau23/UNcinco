@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>UN5</title>
+
+    <!-- Normalize V8.0.1 -->
+    <link rel="stylesheet" th:href="@{/css/normalize.css}">
+
+    <!-- MDBootstrap V5 -->
+    <link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+
+    <!-- Font Awesome V5.15.1 -->
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+
+    <!-- Sweet Alert V10.13.0 -->
+    <script th:src="@{/js/sweetalert2.js}" ></script>
+
+    <!-- General Styles -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" th:href="@{/css/cuenta.css}">
+
+</head>
+
+<body>
+
+<!-- Header -->
+<!-- Header -->
+<header class="header full-box navbar navbar-dark bg-dark">
+    <a class="navbar-brand">
+        <div id="menu-bar" class="fas fa-hamburger fa-2x text-white"></div>
+    </a>
+    <div class="header-options full-box">
+        <nav class="header-navbar full-box poppins-regular font-weight-bold" >
+            <ul class="list-unstyled full-box">
+                <li>
+                    <a th:href="@{'/empleadopedidos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Pedidos<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/empleadolocalDatos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Datos del local<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/empleadorestaurantesBuscador.html/' + ${usuario.adminId}}" class="text-light">Regresar a restaurantes<span class="full-box" ></span></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="header-button full-box text-center btn-login-menu" >
+            <i class="fas fa-user-alt text-light" onclick="show_popup_login()" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Mi cuenta" ></i>
+            <div class="div-bordered popup-login">
+
+
+                <!-- Cerrar sesion -->
+                <div class="text-center full-box">
+                    <i class="fas fa-user-circle fa-4x"></i>
+                </div>
+                <span class="poppins-regular font-weight-bold" th:text="${usuario.adminname}"></span>
+                <div class="text-center full-box">
+                    <a th:href="@{'/empleadocuenta.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="btn btn-info btn-sm w-100"><i class="fas fa-user-cog fa-fw"></i> &nbsp; Mi cuenta</a>
+                </div>
+
+                <form class="full-box" action="">
+                    <a th:href="@{/logout}" class="btn btn-raised btn-primary btn-sm w-100" ><i class="fas fa-door-open fa-fw"></i> &nbsp; Cerrar sesión</a>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</header>
+
+
+<!-- Content -->
+<div class="container container-web-page">
+    <h3 class="font-weight-bold poppins-regular text-uppercase">Detalles del restaurante</h3>
+    <hr>
+
+    <div class="container">
+        <div class="card">
+
+            <div class="additional" id="additional">
+                <div class="user-card">
+
+                    <div th:if="${param.success}">
+                        <dialog id="ms" open>
+                            <p>Has actualizado el restaurante correctamente</p>
+                            <button class="btn btn-raised btn-primary btn-sm w-100" id="close" onclick="document.getElementById('ms').close()">Ok!</button>
+                        </dialog>
+                    </div>
+
+                    <div class="col-12 col-lg-5">
+                        <!--cover-->
+                        <figure class="full-box">
+                            <img class="perfilimg center img-fluid" th:src="@{/assets/img/logo1.png}" alt="Usuario">
+                        </figure>
+
+                    </div>
+                </div>
+                <div class="more-info">
+
+                    <!-- Funcionalidad de actualizacion de datos de usuario -->
+                    <h1>Actualización de restaurante</h1>
+                    <form th:action="@{'/localDatosBuscador.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" th:object="${restaurante}" method="POST" >
+                        <div class="form-group mb-4" >
+
+                            <label for="name" class="text-light lead font-weight-bold">Nombre del restaurante:</label>
+                            <input type="text"  value="" class="form-control text-center"
+                                   th:field="*{noombrerest}" id="name" th:placeholder="${restaurante.noombrerest}" required pattern="[a-zA-z0-9áéíóúÁÉÍÓÚñÑ ]{1,50}" maxlength="50" data-toggle="tooltip" data-placement="top" title="Nombre restaurante" >
+
+                        </div>
+
+                        <div class="form-group mb-4">
+
+                            <label for="slogan" class="text-light lead font-weight-bold">Slogan del restaurante:</label>
+
+                            <input type="text" value="" class="form-control text-center"
+                                   th:field="*{sloganrest}" id="slogan" th:placeholder="${restaurante.sloganrest}" required pattern="[a-zA-z0-9áéíóúÁÉÍÓÚñÑ@. ]{1,50}" maxlength="50" data-toggle="tooltip" data-placement="top" title="escribir slogan" >
+
+                        </div>
+
+                        <div class="form-group mb-4">
+
+                            <label for="totaltables" class="text-light lead font-weight-bold">Numero de mesas:</label>
+
+                            <input type="text" value="" class="form-control text-center"
+                                   th:field="*{totalTablerest}" id="totaltables" th:placeholder="${restaurante.totalTablerest}" required pattern="{1,50}" maxlength="50" data-toggle="tooltip" data-placement="top" title="escribir total de mesas" >
+
+                        </div>
+
+                        <input type="hidden" th:field="*{idrest}">
+
+                        <div class="row">
+                            <div class="col-6 col-md-6 text" >
+
+                                <button type="submit" id="confirmar_actualizar" class="btn btn-info btn-sm btn-success" >confirmar actualizacion</button>
+                            </div>
+
+                            <div class="col-6 col-md-6 text" >
+
+                                <input type="button" id="volver"
+                                       onclick="document.getElementById('additional').style.width='40%';" class="btn btn-danger btn-sm" value="volver"></input>
+                            </div>
+                        </div>
+                    </form>
+
+
+
+                </div>
+            </div>
+
+            <!--Datos de perfil del usuario-->
+            <div class="general">
+                <h1>Datos de restaurante</h1>
+
+                <span class="text-dark lead font-weight-bold">Nombre de restaurante:</span>
+                <p class="dato" th:text="${restaurante.noombrerest}"></p>
+
+                <span class="text-dark lead font-weight-bold">Slogan del restaurante:</span>
+                <p class="dato" th:text="${restaurante.sloganrest}"></p>
+
+                <span class="text-dark lead font-weight-bold">Numero de mesas:</span>
+                <p class="dato" th:text="${restaurante.totalTablerest}"></p>
+
+                <span class="text-dark lead font-weight-bold">Total en ventas:</span>
+                <p class="dato">$?</p>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+    </div>
+</footer>
+
+
+<!-- MDBootstrap V5 -->
+<script th:src="@{/js/mdb.min.js}" ></script>
+
+<!-- fslightbox -->
+<script th:src="@{/js/fslightbox.js}" ></script>
+
+<!-- General scripts -->
+<script th:src="@{/js/main.js}" ></script>
+</body>
+</html>

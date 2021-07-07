@@ -35,7 +35,7 @@ public class WebBuscadorController {
     @PostMapping("/carrito.html")
     public String gorestaurante(@ModelAttribute("correo")Admin usuario){
         usuario= adminMapper.toAdmin(adminCrudRepository.findByCorreo(usuario.getAdmincorreo()));
-        return "redirect:/restaurantesBuscador.html/"+usuario.getAdminId();
+        return "redirect:/empleadorestaurantesBuscador.html/"+usuario.getAdminId();
     }
 
     @GetMapping ("/carrito.html")
