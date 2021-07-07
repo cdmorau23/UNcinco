@@ -1,7 +1,11 @@
 package com.UN5.market.web.backController;
 
 import com.UN5.market.domain.Product;
+import com.UN5.market.domain.service.ComprasProductoService;
 import com.UN5.market.domain.service.ProductService;
+import com.UN5.market.persistence.crud.CompraProductoCrudRepository;
+import com.UN5.market.persistence.crud.ProductoCrudRepository;
+import com.UN5.market.persistence.jpa.ProductoJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +19,12 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ComprasProductoService  comprasProductoService;
+    @Autowired
+    private ProductoCrudRepository pcrudr;
+    @Autowired
+    private ProductoJpaRepository pJPA;
 
     @GetMapping("/all")
     public ResponseEntity<List<Product>> getAll() {
@@ -32,15 +42,16 @@ public class ProductController {
     }
 
     @GetMapping("/deleteProduct/{id}")
-    public String deleteProduct(Model model, @PathVariable(name="id") int productId) {
-        try {
-            productService.removeProduct(productId);
-        } catch (Exception e) {
-            model.addAttribute("deleteError","The user product not be deleted.");
-        }
+    public String deletedProduct(Model model, @PathVariable(name="id") int productId) throws Exception {
+            pcrudr.removeProductoporfa(productId);
         return productService.getProduct(productId).getName();
     }
 
+    @GetMapping("/deleteCProduct/{id}")
+    public String deleteCProduct(Model model, @PathVariable(name="id") int productId) throws Exception {
+        comprasProductoService.removeproducts(productId);
+        return productService.getProduct(productId).getName();
+    }
 
     /*
     @DeleteMapping("/delete/{id}")

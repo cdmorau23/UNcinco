@@ -14,6 +14,8 @@ public interface ProductoCrudRepository extends CrudRepository<Producto, Integer
     List<Producto> findByIdRestauranteOrderByNombreAsc(int idRestaurante);
 
     List<Producto> findById(int id);
+    @Query(value = "DELETE FROM public.productos WHERE id_producto = ?;",nativeQuery = true)
+    void removeProductoporfa(int productoId);
 
 
 }

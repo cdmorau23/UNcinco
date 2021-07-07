@@ -11,7 +11,7 @@ public interface ProductRepository {
     List<Product> getByRest(int restId);
     Product getProduct(int productId);
     Product save(Product product);
-    String delete(int productId);
+    void delete(int productId);
     void updateProduct(String name, String description, double price, int stock, int productId);
     void insertProduct(String name, String description, double price, int stock, int restId);
 

@@ -2,6 +2,7 @@ package com.UN5.market.persistence;
 
 import com.UN5.market.domain.Product;
 import com.UN5.market.domain.repository.ProductRepository;
+import com.UN5.market.domain.service.ComprasProductoService;
 import com.UN5.market.persistence.crud.ProductoCrudRepository;
 import com.UN5.market.persistence.entity.ComprasProductoPK;
 import com.UN5.market.persistence.jpa.ProductoJpaRepository;
@@ -23,6 +24,9 @@ public class ProductoRepository implements ProductRepository {
 
     @Autowired
     private ProductoJpaRepository productoJpaRepository;
+
+    @Autowired
+    private ComprasProductoService productoCRUDRepository;
 
     @Autowired
     private ProductMapper mapper;
@@ -52,9 +56,9 @@ public class ProductoRepository implements ProductRepository {
     }
 
     @Override
-    public String delete(int productId) {
-        productoCrudRepository.deleteById(productId);
-        return "productoBorrado";
+    public void delete(int productId) {
+        productoCRUDRepository.removeproducts(productId);
+        productoCrudRepository.removeProductoporfa(productId);
     }
 
     @Override

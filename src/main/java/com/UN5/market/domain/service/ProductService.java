@@ -3,6 +3,7 @@ package com.UN5.market.domain.service;
 import com.UN5.market.domain.Product;
 import com.UN5.market.domain.repository.ProductRepository;
 import com.UN5.market.persistence.crud.CompraProductoCrudRepository;
+import com.UN5.market.persistence.crud.ProductoCrudRepository;
 import com.UN5.market.persistence.entity.ComprasProducto;
 import com.UN5.market.persistence.jpa.ProductoJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class ProductService {
     private ProductRepository productRepository;
     private ProductoJpaRepository jpaProducto;
     private CompraProductoCrudRepository CrudCompraProducto;
+    private ProductoCrudRepository pcrudr;
 
     public List<Product> getAll() {
         return productRepository.getAll();
@@ -39,12 +41,9 @@ public class ProductService {
     public void insertProduct(String name, String description, double price, int stock, int restId){productRepository.insertProduct(name,description,price,stock,restId);}
 
 
-    public void deleteProduct(int productId) throws Exception {
+    public void  removeproducts2 (int productoId){ pcrudr.removeProductoporfa(productoId);}
 
-            Product producto = productRepository.getProduct(productId);
-            productRepository.delete(productId);
 
-    }
     public void removeProduct(int productId) throws Exception {
 
         List<ComprasProducto> muchasCompras = CrudCompraProducto.findByIdIdProductoOrderByProductoNombreAsc(productId);
