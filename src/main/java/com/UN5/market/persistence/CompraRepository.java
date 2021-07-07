@@ -53,5 +53,10 @@ public class CompraRepository implements PurchaseRepository {
         return mapperitem.toPurchaseItems(compraProductoCrudRepository.findByIdIdCompraOrderByProductoNombreAsc(purchaseId));
     }
 
+    @Override
+    public void updateState(int purchaseId) {
+        compraJpaRepository.updateEstado(purchaseId);
+    }
+
 
 }

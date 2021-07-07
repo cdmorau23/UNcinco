@@ -31,4 +31,6 @@ public class PurchaseService {
 
     }
 
+    public void updateState(int compraId){purchaseRepository.updateState(compraId);}
+
 }
