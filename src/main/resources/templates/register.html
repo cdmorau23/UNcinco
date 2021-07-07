@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <!---<title> Responsive Registration Form | CodingLab </title>--->
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/register.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="principal.html">Principal</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">Ingresar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Registrarse</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>Registro</h1>
+  <h2>Por favor llene todos los campos:</h2>
+  <div th:if="${param.success}">
+    <div class="alert alert-info">Te has registrado exitosamente!</div>
+  </div>
+  <div class="content">
+    <form th:action="@{/register.html}" method="post" th:object="${admin}" >
+      <div class="user-details-email">
+        <div class="input-box">
+          <input class="form-control" type="text" placeholder="Nombre completo" th:field="*{adminname}" required autofocus="autofocus" />
+        </div>
+      </div>
+      <div class="user-details-email">
+        <div class="input-box">
+          <input class="form-control" type="email" placeholder="Email" th:field="*{admincorreo}" required autofocus="autofocus" />
+        </div>
+        <label th:text="Roles" class="col-lg-2 col-form-label form-control-label"></label>
+        <div>
+          <select class="form-control"  size="2"   th:field="*{adminrole}"  required autofocus="autofocus" />
+            <option value="Administrador">Administrador</option>
+            <option value="Empleado">Empleado</option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <div class="user-details">
+        <div class="input-box">
+          <input class="form-control" type="password" placeholder="contraseña" th:field="*{admincontrasenia}" required autofocus="autofocus" />
+        </div>
+        <div class="input-box">
+          <input class="form-control" type="password" placeholder="Confirmar contraseña" th:field="*{adminconfcontrasenia}" required autofocus="autofocus" />
+        </div>
+      </div>
+      <div  th:if="${formErrorMessage}" >
+        <div class="alert alert-danger text-center" th:text="${formErrorMessage}">Error message</div>
+      </div>
+        <div class="button">
+          <input type="submit" value="Registrarse">
+        </div>
+        <a class="sicue" href="login.html">Ya tienes una cuenta?</a>
+        <a class= "olvcon" href="#">Olvidaste tu contraseña?</a>
+      <br>
+
+    </form>
+    </div>
+  </div>
+
+  <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

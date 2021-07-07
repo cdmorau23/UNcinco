@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>UN5</title>
+
+    <!-- Normalize V8.0.1 -->
+    <link rel="stylesheet" th:href="@{/css/normalize.css}">
+
+    <!-- MDBootstrap V5 -->
+    <link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+
+    <!-- Font Awesome V5.15.1 -->
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+
+    <!-- Sweet Alert V10.13.0 -->
+    <script th:src="@{/js/sweetalert2.js}" ></script>
+
+    <!-- General Styles -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" th:href="@{/css/productos.css}">
+
+    <style type="text/css">
+        .container-fluid {
+            border-top: 1px solid #E1E1E1;
+            padding: 20px;:;
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- Header -->
+<header class="header full-box navbar navbar-dark bg-dark">
+    <a class="navbar-brand">
+        <div id="menu-bar" class="fas fa-hamburger fa-2x text-white"></div>
+    </a>
+    <div class="header-options full-box">
+        <nav class="header-navbar full-box poppins-regular font-weight-bold" >
+            <ul class="list-unstyled full-box">
+                <li>
+                    <a href="#" class="text-light">Productos<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/pedidos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Pedidos<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/estadisticas.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Estadisticas<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/localDatos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Datos del local<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/restaurantesBuscador.html/' + ${usuario.adminId}}" class="text-light">Regresar a restaurantes<span class="full-box" ></span></a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="header-button full-box text-center btn-login-menu" >
+            <i class="fas fa-user-alt text-light" onclick="show_popup_login()" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Mi cuenta" ></i>
+            <div class="div-bordered popup-login">
+
+
+                <!-- Cerrar sesion -->
+                <div class="text-center full-box">
+                    <i class="fas fa-user-circle fa-4x"></i>
+                </div>
+                <span class="poppins-regular font-weight-bold" th:text="${usuario.adminname}"></span>
+                <div class="text-center full-box">
+                    <a th:href="@{'/cuenta.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="btn btn-info btn-sm w-100"><i class="fas fa-user-cog fa-fw"></i> &nbsp; Mi cuenta</a>
+                </div>
+
+                <form class="full-box" action="">
+                    <a th:href="@{/logout}" class="btn btn-raised btn-primary btn-sm w-100" ><i class="fas fa-door-open fa-fw"></i> &nbsp; Cerrar sesión</a>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</header>
+
+
+<!-- Contenido de la pagina -->
+<div class="container container-web-page">
+    <h3 class="font-weight-bold poppins-regular text-uppercase">Administrar productos</h3>
+
+    <!-- En esta parte es donde se encuentra el listado de restaurantes-->
+    <!-- boton para agregar nuevo restaurante-->
+    <div class="container-fluid" style="padding: 20px 0;">
+        <div class="row">
+            <div class="col-12 text-capitalize text-center">
+                <a th:href="@{'/productoAgregar.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="btn btn-success btn-sm"><i class="fas fa-database fa-fw"> </i> &nbsp; Agregar producto</a>            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-4" th:each="producto:${productos}">
+                <div class="card">
+                    <div class="card-image"></div>
+                    <div class="card-body">
+                        <h2 th:text="${producto.name}">Pedido 1</h2>
+                        <p th:text="${producto.description}"></p>
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat">
+                            <div class="value" th:text="${producto.stock}"></div>
+                            <div class="type">Stock</div>
+                        </div>
+                        <div class="stat border">
+                            <div class="value" th:text="'$' + ${producto.price}"></div>
+                            <div class="type">Costo</div>
+                        </div>
+                        <div class="stat details">
+                            <i class="fas fa-hand-pointer fa-2x"></i>
+                            <a th:href="@{'/productoDetalles.html/'+ ${usuario.adminId} + '/' + ${restaurante.idrest} + '/' + ${producto.productId}}" class="detalles type my-3">Mas detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- MDBootstrap V5 -->
+<script th:src="@{/js/mdb.min.js}" ></script>
+
+<!-- General scripts -->
+<script th:src="@{/js/main.js}" ></script>
+</body>
+</html>

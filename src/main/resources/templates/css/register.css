@@ -1,0 +1,162 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: url(assets/img/Comidaregister2.jpg) no-repeat center top;;
+    background-size: cover;
+}
+
+.container{
+    max-width: 700px;
+    width: 100%;
+    background: rgb(0, 0, 0);
+    color: #fff;
+    top: 20%;
+    right: 1%;
+    position: absolute;
+    padding: 40px 30px;
+}
+.container h1{
+    margin: 0;
+    padding: 0 0 5px;
+    text-align: left;
+    font-size: 22px;
+}
+
+.container h2{
+    margin: 0;
+    padding: 0 0 30px;
+    text-align: left;
+    font-size: 14px;
+    color: rgb(175, 175, 175);
+}
+
+.content form .user-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.content form .user-details-email{
+    display: block;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0px 0px 0;
+}
+
+form .user-details .input-box{
+    margin-bottom: 20px;
+    width: calc(100% / 2 - 20px);
+}
+
+form .user-details-email .input-box{
+    margin-bottom: 20px;
+    width: calc(100%);
+}
+
+.user-details .input-box input{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    width: 100%;
+    color: #fff;
+    font-size: 16px;
+}
+
+.user-details-email .input-box input{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    width: 100%;
+    color: #fff;
+    font-size: 16px;
+}
+
+.user-details .input-box input:focus,
+.user-details .input-box input:valid{
+    border-color: #be2537;
+}
+
+.user-details-email .input-box input:focus,
+.user-details-email .input-box input:valid{
+    border-color: #be2537;
+}
+
+form input[type="radio"]{
+    display: none;
+}
+form .button{
+    height: 45px;
+    margin: 15px 0
+}
+form .button input{
+    border: none;
+    height: 40px;
+    width: 100%;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #b80f22;
+}
+form .button input:hover{
+    cursor: pointer;
+    background: #f0b70f;
+    color: #000;
+}
+
+.container a {
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgrey;
+}
+
+.container a[class="olvcon"] {
+    float: left;
+}
+.container a[class="sicue"] {
+    float: right;
+}
+
+.container a:hover {
+    color: white;
+}
+
+@media(max-width: 584px){
+    .container{
+        max-width: 100%;
+    }
+    form .user-details .input-box{
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    form .category{
+        width: 100%;
+    }
+    .content form .user-details{
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+    .user-details::-webkit-scrollbar{
+        width: 5px;
+    }
+}
+@media(max-width: 459px){
+    .container .content .category{
+        flex-direction: column;
+    }
+}

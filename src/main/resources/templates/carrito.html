@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>
+        Hello World!
+    </title>
+</head>
+<body>
+<form th:action="@{/carrito.html}" method="post" th:object="${correo}">
+
+    <div class="form-group" >
+
+        <label for="correo" class="text-light lead font-weight-bold">Correo:</label>
+        <input class="form-control" id="correo" type="text" value="" th:field="*{admincorreo}" th:placeholder="${#httpServletRequest.remoteUser}" data-toggle="tooltip" data-placement="top" title="Correo">
+    </div>
+    <input type="submit" value="Ingresar">
+</form>
+</body>
+<html>

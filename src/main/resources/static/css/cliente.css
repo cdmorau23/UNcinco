@@ -1,0 +1,86 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    text-decoration: none;
+    outline: none;
+    border: none;
+  }
+
+#imagen{
+    background: url(assets/img/Dieta-saludable.jpg) no-repeat center top;
+    background-size: auto auto;
+    height: 400px;
+    margin-top: 15px;
+}
+
+#info-local{
+    height: 400px;
+    margin-top:15px;
+    background-color: orange;
+    text-align: center;
+}
+
+.imgRedonda {
+    width:150px;
+    height:150px;
+    border-radius:150px;
+    margin-top: 40px;
+}
+
+#nombre{
+    font-size: 30px;
+    margin-top:30px;
+    font-weight: 510;
+}
+
+#slogan{
+    font-size: 20px;
+}
+
+#titulo{
+    text-align: center;
+    margin-top: 15px;
+
+}
+
+.head-menu {
+    margin-top: 60px;
+    margin-left: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.head-menu h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+.head-menu div {
+    height: 13px;
+    width: 100%;
+    background-color: black;
+    border-radius: 15px;
+    margin-bottom: 18px;
+}
+.card {
+    margin: 20px 0 0 0;
+    border: 1px solid black;
+    box-shadow: 6px 6px grey;
+    font-size:12px;
+}
+
+.add-btn {
+    width: auto;
+    font-size: 13px;
+    height: 26px;
+    padding: 0 13px;
+    border-radius: 15px;
+    background-color: #f53339;
+    color: white;
+}
+
+.add-btn:hover {
+    background-color: rgb(165, 56, 56);
+    cursor: pointer;
+}

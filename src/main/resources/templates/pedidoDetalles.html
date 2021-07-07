@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>UN5</title>
+
+    <!-- Normalize V8.0.1 -->
+    <link rel="stylesheet" th:href="@{/css/normalize.css}">
+
+    <!-- MDBootstrap V5 -->
+    <link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+
+    <!-- Font Awesome V5.15.1 -->
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+
+    <!-- Sweet Alert V10.13.0 -->
+    <script th:src="@{/js/sweetalert2.js}" ></script>
+
+    <!-- General Styles -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+
+<!-- Header -->
+<header class="header full-box navbar navbar-dark bg-dark">
+    <a class="navbar-brand">
+        <div id="menu-bar" class="fas fa-hamburger fa-2x text-white"></div>
+    </a>
+    <div class="header-options full-box">
+        <nav class="header-navbar full-box poppins-regular font-weight-bold" >
+            <ul class="list-unstyled full-box">
+                <li>
+                    <a th:href="@{'/productos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Productos<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/pedidos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Pedidos<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/estadisticas.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Estadisticas<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/localDatos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Datos del local<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/restaurantesBuscador.html/' + ${usuario.adminId}}" class="text-light">Regresar a restaurantes<span class="full-box" ></span></a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="header-button full-box text-center btn-login-menu" >
+            <i class="fas fa-user-alt text-light" onclick="show_popup_login()" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Mi cuenta" ></i>
+            <div class="div-bordered popup-login">
+
+
+                <!-- Cerrar sesion -->
+                <div class="text-center full-box">
+                    <i class="fas fa-user-circle fa-4x"></i>
+                </div>
+                <span class="poppins-regular font-weight-bold" th:text="${usuario.adminname}"></span>
+                <div class="text-center full-box">
+                    <a th:href="@{'/cuenta.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="btn btn-info btn-sm w-100"><i class="fas fa-user-cog fa-fw"></i> &nbsp; Mi cuenta</a>
+                </div>
+
+                <form class="full-box" action="">
+                    <a th:href="@{/logout}" class="btn btn-raised btn-primary btn-sm w-100" ><i class="fas fa-door-open fa-fw"></i> &nbsp; Cerrar sesión</a>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</header>
+
+
+<!-- Content -->
+<section class="container-cart ">
+    <div class="container container-web-page">
+        <h3 class="font-weight-bold poppins-regular text-uppercase">Detalles de pedido</h3>
+        <hr>
+    </div>
+
+    <div class="container" style="padding-top: 40px;">
+
+        <div class="row">
+            <div class="col-12 col-md-7 col-lg-8">
+                <div class="container-fluid">
+
+                    <fieldset id="campo3" disabled="true" th:each="itempedido:${itemsPedido}">
+
+                    <h5 class="poppins-regular font-weight-bold full-box text-center" th:text="${itempedido.product.name}"></h5>
+                    <div class="bag-item full-box">
+                        <figure class="full-box">
+                            <img th:src="@{/assets/platillos/pedidos.jpg}" class="img-fluid" alt="platillo_nombre">
+                        </figure>
+                        <div class="full-box">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12 col-lg-6 text-center mb-4">
+                                        <div class="row justify-content-center">
+                                            <div class="col-auto">
+                                                <div class="form-outline mb-4">
+                                                    <input type="text" th:value="${itempedido.quantity}" class="form-control text-center" id="product_cant_1" pattern="[0-9]{1,10}" maxlength="10" style="max-width: 100px; ">
+                                                    <label for="product_cant_1" class="form-label" >Cantidad</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <button type="button" class="btn btn-success" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Actualizar cantidad" ><i class="fas fa-sync-alt fa-fw"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-4 text-center mb-4">
+                                        <span class="poppins-regular font-weight-bold" th:text="'SUBTOTAL: $' + ${itempedido.total}"></span>
+                                    </div>
+                                    <div class="col-12 col-lg-2 text-center text-lg-end mb-4">
+                                        <button type="button" class="btn btn-danger" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Quitar del carrito" >
+                                            <span aria-hidden="true"><i class="far fa-trash-alt"></i></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+
+                    </fieldset>
+
+                </div>
+            </div>
+            <div class="col-12 col-md-5 col-lg-4">
+                <div class="full-box div-bordered">
+                    <h5 class="text-center text-uppercase bg-success" style="color: #FFF; padding: 10px 0;">Resumen de la orden</h5>
+                    <ul class="list-group bag-details">
+
+                        <a class="list-group-item d-flex justify-content-between align-items-center text-uppercase poppins-regular font-weight-bold">
+                            Total
+                            <span>$10.00</span>
+                        </a>
+                    </ul>
+                    <p class="text-center">
+                        <button type="button" class="btn btn-primary">Marcar como entregado</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- MDBootstrap V5 -->
+<script th:src="@{/js/mdb.min.js}" ></script>
+
+<!-- General scripts -->
+<script th:src="@{/js/main.js}" ></script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>UN5</title>
+
+    <!-- Normalize V8.0.1 -->
+    <link rel="stylesheet" th:href="@{/css/normalize.css}">
+
+    <!-- MDBootstrap V5 -->
+    <link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+
+    <!-- Font Awesome V5.15.1 -->
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+
+    <!-- Sweet Alert V10.13.0 -->
+    <script th:src="@{/js/sweetalert2.js}" ></script>
+
+    <!-- General Styles -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" th:href="@{/css/cuenta.css}">
+
+</head>
+<style type="text/css">
+    table, th, td{
+        border: 1px solid blue;
+        border-collapse: collapse;
+    }
+    th,td{
+        padding: 2px;
+    }
+</style>
+<body>
+
+<!-- Header -->
+<header class="header full-box navbar navbar-dark bg-dark">
+    <a class="navbar-brand">
+        <div id="menu-bar" class="fas fa-hamburger fa-2x text-white"></div>
+    </a>
+    <div class="header-options full-box">
+        <nav class="header-navbar full-box poppins-regular font-weight-bold" >
+            <ul class="list-unstyled full-box">
+                <li>
+                    <a th:href="@{'/productos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Productos<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/pedidos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Pedidos<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/estadisticas.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Estadisticas<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/localDatos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Datos del local<span class="full-box" ></span></a>
+                </li>
+                <li>
+                    <a th:href="@{'/restaurantesBuscador.html/' + ${usuario.adminId}}" class="text-light">Regresar a restaurantes<span class="full-box" ></span></a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="header-button full-box text-center btn-login-menu" >
+            <i class="fas fa-user-alt text-light" onclick="show_popup_login()" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Mi cuenta" ></i>
+            <div class="div-bordered popup-login">
+
+
+                <!-- Cerrar sesion -->
+                <div class="text-center full-box">
+                    <i class="fas fa-user-circle fa-4x"></i>
+                </div>
+                <span class="poppins-regular font-weight-bold" th:text="${usuario.adminname}"></span>
+                <div class="text-center full-box">
+                    <a th:href="@{'/cuenta.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="btn btn-info btn-sm w-100"><i class="fas fa-user-cog fa-fw"></i> &nbsp; Mi cuenta</a>
+                </div>
+
+                <form class="full-box" action="">
+                    <a th:href="@{/login.html}" class="btn btn-raised btn-primary btn-sm w-100" ><i class="fas fa-door-open fa-fw"></i> &nbsp; Cerrar sesión</a>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</header>
+
+
+<!-- Content -->
+<div class="container container-web-page">
+    <h3 class="font-weight-bold poppins-regular text-uppercase">Detalles del producto</h3>
+    <hr>
+
+    <div class="container">
+        <div class="card">
+
+            <div class="additional" id="additional">
+                <div class="user-card">
+
+                    <div th:if="${param.success}">
+                        <dialog id="ms" open>
+                            <p>Has actualizado el producto correctamente</p>
+                            <button class="btn btn-raised btn-primary btn-sm w-100" id="close" onclick="document.getElementById('ms').close()">Ok!</button>
+                        </dialog>
+                    </div>
+
+                    <div class="col-12 col-lg-5">
+                        <!--cover-->
+                        <figure class="full-box">
+                            <img class="perfilimg center img-fluid" th:src="@{/assets/img/logo1.png}" alt="Usuario">
+                        </figure>
+
+                    </div>
+                </div>
+                <div class="more-info">
+
+                    <!-- Funcionalidad de actualizacion de datos de usuario -->
+                    <h1>Actualización de producto</h1>
+                    <form th:action="@{'/productoDetalles.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest} + '/' +${producto.productId}}" th:object="${producto}" method="POST" >
+                        <div class="form-group mb-4" >
+
+                            <label for="name" class="text-light lead font-weight-bold">Nombre del producto:</label>
+                            <input type="text"  value="" class="form-control text-center"
+                                   th:field="*{name}" id="name" th:placeholder="${producto.name}" required pattern="[a-zA-z0-9áéíóúÁÉÍÓÚñÑ ]{1,50}" maxlength="50" data-toggle="tooltip" data-placement="top" title="Nombre producto" >
+
+                        </div>
+
+                        <div class="form-group mb-4">
+
+                            <label for="description" class="text-light lead font-weight-bold">Descripcion del producto:</label>
+
+                            <input type="text" value="" class="form-control text-center"
+                                   th:field="*{description}" id="description" th:placeholder="${producto.description}" required  maxlength="200" data-toggle="tooltip" data-placement="top" title="Descripcion producto" >
+
+                        </div>
+
+                        <div class="form-group mb-4">
+
+                            <label for="price" class="text-light lead font-weight-bold">Precio:</label>
+
+                            <input type="text" value="" class="form-control text-center"
+                                   th:field="*{price}" id="price" th:placeholder="${producto.price}" required pattern="{1,9}" maxlength="50" data-toggle="tooltip" data-placement="top" title="Precio del producto" >
+
+                        </div>
+
+                        <div class="form-group mb-4">
+
+                            <label for="stock" class="text-light lead font-weight-bold">Stock:</label>
+
+                            <input type="text" value="" class="form-control text-center"
+                                   th:field="*{stock}" id="stock" th:placeholder="${producto.stock}" required pattern="{1,9}" maxlength="50" data-toggle="tooltip" data-placement="top" title="Stock del producto" >
+
+                        </div>
+
+                        <input type="hidden" th:field="*{productId}">
+
+                        <div class="row">
+                            <div class="col-6 col-md-6 text" >
+
+                                <button type="submit" id="confirmar_actualizar" class="btn btn-info btn-sm btn-success" >confirmar actualizacion</button>
+                            </div>
+
+                            <div class="col-6 col-md-6 text" >
+
+                                <input type="button" id="volver"
+                                       onclick="document.getElementById('additional').style.width='40%';" class="btn btn-danger btn-sm" value="volver"></input>
+                            </div>
+                        </div>
+                    </form>
+
+
+
+                </div>
+            </div>
+
+            <!--Datos de perfil del usuario-->
+            <div class="general">
+                <h1>Datos del producto</h1>
+
+                <span class="text-dark lead font-weight-bold">Nombre del producto:</span>
+                <p class="dato" th:text="${producto.name}"></p>
+
+                <span class="text-dark lead font-weight-bold">Descripcion del producto:</span>
+                <p class="dato" th:text="${producto.description}"></p>
+
+                <span class="text-dark lead font-weight-bold">Precio:</span>
+                <p class="dato" th:text="'$' + ${producto.price}"></p>
+
+                <span class="text-dark lead font-weight-bold">Stock:</span>
+                <p class="dato" th:text="${producto.stock}"></p>
+
+                <div class="row">
+                    <div class="col-6 col-md-6 text" >
+
+                        <button onclick="document.getElementById('additional').style.width='100%'" id="actualizar" class="btn btn-info btn-sm"><i class="fas fa-sync fa-fw" title="Ver actualizacion de producto"></i> &nbsp; Actualizar</button>
+                    </div>
+                    <div class="col-6 col-md-6 text">
+                        <button href="#"class="btn btn-raised btn-danger btn-sm w-100" title="eliminar local"><i class="fas fa-times fa-fw"></i> &nbsp; Eliminar producto</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</div>
+
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+    </div>
+</footer>
+
+
+<!-- MDBootstrap V5 -->
+<script th:src="@{/js/mdb.min.js}" ></script>
+
+<!-- fslightbox -->
+<script th:src="@{/js/fslightbox.js}" ></script>
+
+<!-- General scripts -->
+<script th:src="@{/js/main.js}" ></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+  
+body {
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#cuerpo{
+    background-image: url(assets/img/4-46544_food-hd.jpg);
+    width: 100%;
+    height: 90%;
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: relative;
+}
+
+#cuerpo:before {
+	content:'';
+	position: absolute;
+    top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.6);
+}
+
+
+.box-info{
+    max-width: 700px;
+    width: 100%;
+    color: #fff;
+    left: 1%;
+    position: absolute;
+    padding: 40px 30px;
+}
+.box-info h1,h2{
+    color: #fff;
+}
+.box-info h1{
+    font-family: fantasy;
+    left: 300px;
+    font-size: 50px;
+}
+.box-info h2{
+    font-size: 35px;
+    padding: 20px 0 0 0;
+}
+.parrafo{
+    max-width: 500px;
+    width: 100%;
+    color: #fff;
+    text-align: justify;
+    color: #fff;
+    top: 38%;
+    right: 2%;
+    position: absolute;
+    padding: 40px 30px;
+}
+.parrafo p{
+    padding-left: 10px ;
+    border-left: 7px solid #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

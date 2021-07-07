@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>UN5</title>
+
+    <!-- Normalize V8.0.1 -->
+    <link rel="stylesheet" th:href="@{/css/normalize.css}">
+
+    <!-- MDBootstrap V5 -->
+    <link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+
+    <!-- Font Awesome V5.15.1 -->
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+
+    <!-- Sweet Alert V10.13.0 -->
+    <script th:src="@{/js/sweetalert2.js}" ></script>
+
+    <!-- General Styles -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" th:href="@{/css/agregar.css}">
+
+</head>
+<body>
+
+<!-- Header -->
+<header class="header full-box navbar navbar-dark bg-dark">
+    <a class="navbar-brand">
+        <div id="menu-bar" class="fas fa-hamburger fa-2x text-white"></div>
+    </a>
+    <div class="header-options full-box">
+        <nav class="header-navbar full-box poppins-regular font-weight-bold" >
+            <ul class="list-unstyled full-box">
+                <li>
+                    <a th:href="@{'/restaurantesBuscador.html/' + ${usuario.adminId}}"  class="text-light">Mis restaurantes<span class="full-box" ></span></a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="header-button full-box text-center btn-login-menu" >
+            <i class="fas fa-user-alt text-light" onclick="show_popup_login()" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Mi cuenta" ></i>
+            <div class="div-bordered popup-login">
+
+
+                <!-- Cerrar sesion -->
+                <div class="text-center full-box">
+                    <i class="fas fa-user-circle fa-4x"></i>
+                </div>
+                <span class="poppins-regular font-weight-bold" th:text="${usuario.adminname}"></span>
+                <div class="text-center full-box">
+                    <a th:href="@{'/cuentaBuscador.html/' + ${usuario.adminId}}" class="btn btn-info btn-sm w-100"><i class="fas fa-user-cog fa-fw"></i> &nbsp; Mi cuenta</a>
+                </div>
+
+                <form class="full-box" action="">
+                    <a th:href="@{/logout}" class="btn btn-raised btn-primary btn-sm w-100" ><i class="fas fa-door-open fa-fw"></i> &nbsp; Cerrar sesión</a>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</header>
+
+
+<!-- Content -->
+<div class="container container-web-page">
+    <h3 class="font-weight-bold poppins-regular text-uppercase">Crear Restaurante</h3>
+    <p class="text-justify">La información introducida en el formulario debe de ser clara, precisa y legitima. Para crear un nuevo restaurante debe de llenar todos los campos que son obligatorios marcados con el icono <i class="fab fa-font-awesome-alt"></i></p>
+    <hr>
+
+    <div class="container">
+        <div class="card">
+
+            <div class="additional" id="additional">
+                <div class="user-card">
+
+                    <div class="col-12 col-lg-5">
+                        <!--cover-->
+                        <figure class="full-box">
+                            <img class="perfilimg center img-fluid" th:src="@{/assets/img/logo.jpg}" alt="Usuario">
+                        </figure>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Datos de perfil del usuario-->
+            <div class="general">
+                <form action="" style="padding: 15px; "  th:action="@{/restauranteAgregarBuscador.html/{AdminId}}" method="post" th:object="${rest}">
+
+
+                <fieldset>
+
+                    <legend><i class="far fa-address-card text-light"></i> &nbsp; Nombre de restaurante</legend>
+                    <div class="form-outline mb-4">
+                        <input type="text" required="" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ@ ]{4,35}" class="form-control text-center text-light" id="nombreRes" th:field="*{noombrerest}" maxlength="50" data-toggle="tooltip" data-placement="top">
+                        <label for="nombreRes" class="form-label text-light">Nombre de restaurante <i class="fab fa-font-awesome-alt"></i></label>
+                    </div>
+
+                    <legend><i class="far fa-address-card text-light"></i> &nbsp; Slogan Restaurante</legend>
+                    <div class="form-outline mb-4">
+                        <input type="text" required="" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ@ ]{4,35}" class="form-control text-light" id="sloganRes" th:field="*{sloganrest}" maxlength="50" data-toggle="tooltip" data-placement="top">
+                        <label for="sloganRes" class="form-label text-light">Slogan<i class="fab fa-font-awesome-alt text-light"></i></label>
+                    </div>
+
+                    <legend><i class="far fa-address-card text-light"></i> &nbsp; Numero de mesas</legend>
+                    <div class="form-outline mb-4">
+                        <input type="text" required="" pattern="[0-9]{1,10}" title="se permiten solo valores numericos" th:field="*{totalTablerest}" maxlength="10" class="form-control text-light" id="mesasRes">
+                        <label for="mesasRes" class="form-label text-light">cantidad de mesas <i class="fab fa-font-awesome-alt "></i></label>
+                    </div>
+
+                    </fieldset>
+
+                    <p class="text-center" style="margin-top: 40px;">
+                        <input type="submit" class="btn btn-info btn-sm" value="AGREGAR RESTAURANTE" ></input>
+                    </p>
+                    <p class="text-center">
+                        <small class="text-light">Los campos marcados con <i class="fab fa-font-awesome-alt text-light"></i> son obligatorios</small>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="footer">
+
+</footer>
+
+
+<!-- MDBootstrap V5 -->
+<script th:src="@{/js/mdb.min.js}" ></script>
+
+<!-- General scripts -->
+<script th:src="@{/js/main.js}" ></script>
+</body>
+</html>
