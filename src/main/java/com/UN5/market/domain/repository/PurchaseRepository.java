@@ -11,6 +11,7 @@ public interface PurchaseRepository {
     Purchase save(Purchase purchase);
     List<Purchase> getByRest(int restId);
     List<PurchaseItem> getByPurchase(int purchaseId);
+    void updateState(int purchaseId);
     /*
     - dado cierto restaurante obtener la lista de pedidos asociados a este
     - insertar un nuevo pedido dando los datos correspondientes, uso en el menu de carrito del cliente

@@ -105,18 +105,10 @@
                                                     <label for="product_cant_1" class="form-label" >Cantidad</label>
                                                 </div>
                                             </div>
-                                            <div class="col-auto">
-                                                <button type="button" class="btn btn-success" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Actualizar cantidad" ><i class="fas fa-sync-alt fa-fw"></i></button>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-4 text-center mb-4">
                                         <span class="poppins-regular font-weight-bold" th:text="'SUBTOTAL: $' + ${itempedido.total}"></span>
-                                    </div>
-                                    <div class="col-12 col-lg-2 text-center text-lg-end mb-4">
-                                        <button type="button" class="btn btn-danger" data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Quitar del carrito" >
-                                            <span aria-hidden="true"><i class="far fa-trash-alt"></i></span>
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -138,9 +130,18 @@
                             <span>$10.00</span>
                         </a>
                     </ul>
-                    <p class="text-center">
-                        <button type="button" class="btn btn-primary">Marcar como entregado</button>
-                    </p>
+                    <div th:if="${param.success}">
+                        <dialog id="ms" open>
+                            <p>Has actualizado el producto correctamente</p>
+                            <button class="btn btn-raised btn-primary btn-sm w-100" id="close" onclick="document.getElementById('ms').close()">Ok!</button>
+                        </dialog>
+                    </div>
+                    <form th:action="@{'/pedidoDetalles.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest} + '/' +${idCompra}}" th:object="${pedido}" method="POST" >
+                        <p class="text-center">
+                            <button type="submit button" class="btn btn-primary">Marcar como entregado</button>
+                        </p>
+                    </form>
+
                 </div>
             </div>
         </div>

@@ -4,16 +4,37 @@
     <title>
         Hello World!
     </title>
+
+    <!-- Normalize V8.0.1 -->
+    <link rel="stylesheet" th:href="@{/css/normalize.css}">
+
+    <!-- MDBootstrap V5 -->
+    <link rel="stylesheet" th:href="@{/css/mdb.min.css}">
+
+    <!-- Font Awesome V5.15.1 -->
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+
+    <!-- Sweet Alert V10.13.0 -->
+    <script th:src="@{/js/sweetalert2.js}" ></script>
+
+    <!-- General Styles -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<form th:action="@{/carrito.html}" method="post" th:object="${correo}">
+<form th:action="@{/carrito.html}" method="POST" th:object="${correo}">
 
     <div class="form-group" >
 
-        <label for="correo" class="text-light lead font-weight-bold">Correo:</label>
-        <input class="form-control" id="correo" type="text" value="" th:field="*{admincorreo}" th:placeholder="${#httpServletRequest.remoteUser}" data-toggle="tooltip" data-placement="top" title="Correo">
+        <label for="admincorreo" class="text-light lead font-weight-bold"></label>
+        <input class="form-control" id="admincorreo" type="hidden" th:value="${#httpServletRequest.remoteUser}"  th:placeholder="${#httpServletRequest.remoteUser}" data-toggle="tooltip" data-placement="top" name= "admincorreo"title="admincorreo">
     </div>
-    <input type="submit" value="Ingresar">
+    <div class="container">
+        <div class="row align-items-center">
+            <h1>Has ingresado correctamente, bienvenido!</h1>
+            <button type="submit" class="btn btn-info btn-sm">Ingresar</button>
+        </div>
+    </div>
+
 </form>
 </body>
 <html>

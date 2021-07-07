@@ -30,27 +30,9 @@ public class WebAdminController {
     @Autowired
     private PurchaseService purchaseService;
 
-    @GetMapping ("/pedidos.html/{AdminId}/{RestId}")
-    public String pedidos(@PathVariable("AdminId") int adminId,@PathVariable("RestId") int restId, Model model){
-        Admin usuario = adService.getAdministrador(adminId);
-        Rest restaurante = RestService.getRest(restId);
-        List<Purchase> pedidos= purchaseService.getByRest(restId);
-        model.addAttribute("usuario",usuario);
-        model.addAttribute("restaurante", restaurante);
-        model.addAttribute("pedidos",pedidos);
-        return "pedidos";
-    }
 
-    @GetMapping ("/pedidoDetalles.html/{AdminId}/{RestId}/{PurchaseId}")
-    public String pedidoDetallesEmpleado(@PathVariable("AdminId") int adminId,@PathVariable("RestId") int restId ,@PathVariable("PurchaseId") int purchaseId, Model model){
-        Admin usuario = adService.getAdministrador(adminId);
-        Rest restaurante = RestService.getRest(restId);
-        List<PurchaseItem> itemsPedido = purchaseService.getByPurchase(purchaseId);
-        model.addAttribute("usuario",usuario);
-        model.addAttribute("restaurante", restaurante);
-        model.addAttribute("itemsPedido",itemsPedido);
-        return "pedidoDetalles";
-    }
+
+
 
     @GetMapping ("/estadisticas.html/{AdminId}/{RestId}")
     public String estadisticasAdmin(@PathVariable("AdminId") int adminId,@PathVariable("RestId") int restId, Model model){
