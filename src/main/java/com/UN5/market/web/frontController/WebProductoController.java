@@ -5,6 +5,8 @@ import com.UN5.market.domain.Product;
 import com.UN5.market.domain.Rest;
 import com.UN5.market.domain.service.AdService;
 import com.UN5.market.domain.service.ProductService;
+import com.UN5.market.persistence.crud.CompraProductoCrudRepository;
+import com.UN5.market.persistence.crud.ProductoCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,12 @@ public class WebProductoController {
 
     @Autowired
     private com.UN5.market.domain.service.ProductService productService;
+
+    @Autowired
+    private ProductoCrudRepository productoCrudRepository;
+
+    @Autowired
+    private CompraProductoCrudRepository compraProductoCrudRepository;
 
     @GetMapping("/productos.html/{AdminId}/{RestId}")
     public String productosAdmin(@PathVariable("RestId") int restId,@PathVariable("AdminId") int adminId, Model model){
@@ -48,12 +56,21 @@ public class WebProductoController {
         return "productoDetalles";
     }
 
-    @PostMapping("/productoDetalles.html/{AdminId}/{RestId}/{ProductId}")
+    @PostMapping("/productoDetallesUpdate.html/{AdminId}/{RestId}/{ProductId}")
     public String actualizarProducto(@ModelAttribute("producto") Product product, @PathVariable("AdminId") int adminId, @PathVariable("RestId") int restId, @PathVariable("ProductId") int productId){
         productService.updateProduct(product.getName(),product.getDescription(),product.getPrice(),product.getStock(),product.getProductId());
         String redirect= "redirect:/productoDetalles.html/"+ adminId + "/" + restId + "/" + productId + "?success";
         return redirect;
     }
+
+    @PostMapping("/productoDetallesDelete.html/{AdminId}/{RestId}/{ProductId}")
+    public String eliminarProducto(@ModelAttribute("producto") Product product, @PathVariable("AdminId") int adminId, @PathVariable("RestId") int restId, @PathVariable("ProductId") int productId){
+        compraProductoCrudRepository.removeCompraProducto(productId);
+        compraProductoCrudRepository.removeProducto(productId);
+        String redirect = "redirect:/productos.html/"+ adminId + "/" + restId;
+        return redirect;
+    }
+
 
     @GetMapping ("/productoAgregar.html/{AdminId}/{RestId}")
     public String productoAgregarAdmin(@PathVariable("RestId") int restId,@PathVariable("AdminId") int adminId, Model model){

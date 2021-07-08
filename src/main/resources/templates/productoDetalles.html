@@ -115,7 +115,7 @@
 
                     <!-- Funcionalidad de actualizacion de datos de usuario -->
                     <h1>Actualización de producto</h1>
-                    <form th:action="@{'/productoDetalles.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest} + '/' +${producto.productId}}" th:object="${producto}" method="POST" >
+                    <form th:action="@{'/productoDetallesUpdate.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest} + '/' +${producto.productId}}" th:object="${producto}" method="POST" >
                         <div class="form-group mb-4" >
 
                             <label for="name" class="text-light lead font-weight-bold">Nombre del producto:</label>
@@ -193,9 +193,18 @@
 
                         <button onclick="document.getElementById('additional').style.width='100%'" id="actualizar" class="btn btn-info btn-sm"><i class="fas fa-sync fa-fw" title="Ver actualizacion de producto"></i> &nbsp; Actualizar</button>
                     </div>
-                    <div class="col-6 col-md-6 text">
-                        <button href="#"class="btn btn-raised btn-danger btn-sm w-100" title="eliminar local"><i class="fas fa-times fa-fw"></i> &nbsp; Eliminar producto</button>
+                    <div class="col-6 col-md-6 text" >
+                        <form th:action="@{'/productoDetallesDelete.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest} + '/' +${producto.productId}}" th:object="${producto}" method="POST" >
+                            <div class="form-group mb-4">
+
+                                <input type="hidden" value="" class="form-control text-center"
+                                       th:field="*{stock}" id="borrar" th:placeholder="${producto.stock}" required pattern="{1,9}" maxlength="50" data-toggle="tooltip" data-placement="top" title="Stock del producto" >
+
+                            </div>
+                            <button type="submit" class=" btn btn-raised btn-danger btn-sm w-100" title="eliminar local"><i class="fas fa-times fa-fw"></i> &nbsp; Eliminar producto</button>
+                        </form>
                     </div>
+
                 </div>
             </div>
         </div>

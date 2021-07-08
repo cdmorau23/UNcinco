@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>UN5</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>UN5</title>
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
-    <!-- Normalize V8.0.1 -->
-    <link rel="stylesheet" href="css/normalize.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 
-    <!-- MDBootstrap V5 -->
-    <link rel="stylesheet" th:href="@{/css/mdb.min.css}">
 
-    <!-- Font Awesome V5.15.1 -->
-    <link rel="stylesheet" th:href="@{/css/all.css}">
+        <!-- Normalize V8.0.1 -->
+        <link rel="stylesheet" th:href="@{/css/normalize.css}">
 
-    <!-- Sweet Alert V10.13.0 -->
-    <script th:src="@{/js/sweetalert2.js}" ></script>
+        <!-- MDBootstrap V5 -->
+        <link rel="stylesheet" th:href="@{/css/mdb.min.css}">
 
-    <!-- General Styles -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+        <!-- Font Awesome V5.15.1 -->
+        <link rel="stylesheet" th:href="@{/css/all.css}">
 
-    <!-- General Styles -->
-    <link rel="stylesheet" href="./css/style.css">
-    <style type="text/css">
-        .container-fluid {
-            border-top: 1px solid #E1E1E1;
-            padding: 20px;:;
-        }
-    </style>
+        <!-- Sweet Alert V10.13.0 -->
+        <script th:src="@{/js/sweetalert2.js}" ></script>
 
-</head>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+        <!-- General Styles -->
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+
+        <!-- General Styles -->
+        <link rel="stylesheet" href="./css/style.css">
+        <style type="text/css">
+            .container-fluid {
+                border-top: 1px solid #E1E1E1;
+                padding: 20px;:;
+            }
+        </style>
+
+    </head>
 <body>
 
 <!-- Header -->
@@ -47,7 +58,7 @@
                     <a th:href="@{'/pedidos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Pedidos<span class="full-box" ></span></a>
                 </li>
                 <li>
-                    <a href="#" class="text-light">Estadisticas<span class="full-box" ></span></a>
+                    <a th:href="@{'/estadisticas.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Estadisticas<span class="full-box" ></span></a>
                 </li>
                 <li>
                     <a th:href="@{'/localDatos.html/' + ${usuario.adminId} + '/' + ${restaurante.idrest}}" class="text-light">Datos del local<span class="full-box" ></span></a>
@@ -84,9 +95,44 @@
 
 
 <!-- Contenido de la pagina -->
-<div class="container container-web-page">
-    <h3 class="font-weight-bold poppins-regular text-uppercase">Hola, aqui no hay nada XD</h3>
-</div>
+<div id="container" style="height: 400px"></div>
+<script th:inline="javascript">
+    Highcharts.chart('container', {
+        chart : {
+            type : 'pie',
+            options3d : {
+                enabled : true,
+                alpha : 50,
+                beta : 0
+            }
+        },
+        title : {
+            text : 'Metodos de pago mas utilizados'
+        },
+        tooltip : {
+            pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions : {
+            pie : {
+                allowPointSelect : true,
+                cursor : 'pointer',
+                depth : 35,
+                dataLabels : {
+                    enabled : true,
+                    format : '{point.name}'
+                }
+            }
+        },
+        series : [ {
+            type : 'pie',
+            name : 'Ratio',
+            data : [ [ 'Tarjeta', [[${M1}]] ], [ 'Efectivo', [[${M2}]] ]  ]
+        } ]
+    });
+
+</script>
+
+
 <!-- MDBootstrap V5 -->
 <script th:src="@{/js/mdb.min.js}" ></script>
 
